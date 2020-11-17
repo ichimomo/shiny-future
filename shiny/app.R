@@ -3563,14 +3563,14 @@ plot_futures <- function(vpares,
     g1 <- future.table.qt %>% dplyr::filter(!is.na(stat)) %>%
         ggplot()+
         geom_line(data=dplyr::filter(future.table.qt,!is.na(stat) & scenario=="VPA"),
-                  mapping=aes(x=year,y=mean),lwd=1,color=1)# VPAのプロット                
+                  mapping=aes(x=year,y=mean),lwd=1.5,color=1)# VPAのプロット                
 
     if(isTRUE(is.plot.CIrange)){
         g1 <- g1+
             geom_ribbon(data=dplyr::filter(future.table.qt,!is.na(stat) & scenario!="VPA"),
                         mapping=aes(x=year,ymin=low,ymax=high,fill=scenario),alpha=0.4)+
             geom_line(data=dplyr::filter(future.table.qt,!is.na(stat) & scenario!="VPA"),
-                      mapping=aes(x=year,y=mean,color=scenario),lwd=1)
+                      mapping=aes(x=year,y=mean,color=scenario),lwd=1.5)
     }
 #    else{
 #        g1 <- g1+
@@ -3914,8 +3914,8 @@ server <- function(input, output) {
 
         input.tmp2 <- input.tmp
         input.tmp2$HCR$beta <- input$beta2
-        if(!isTRUE(input$is.HCR2)) input.tmp2$HCR$Blim <-
-            input.tmp2$HCR$Bban <- -Inf        
+        if(!isTRUE(input$is.HCR2)) input.tmp2$HCR$Blim <- -Inf
+        input.tmp2$HCR$Bban <- -Inf        
         
         future1 <- do.call(future.vpa,input.tmp1)
         future2 <- do.call(future.vpa,input.tmp2)
